@@ -14,7 +14,7 @@ if __name__ == '__main__':
         "--model", type=str, default="meta-llama/Llama-3.2-1B", help="model to load; for example `meta-llama/Llama-3.2-1B`."
     )
     parser.add_argument(
-        "--quanMethod", type=str, default="windowed_greedy", help="Algorithm to use, Algo1: Algo2: Algo3: windowed_greedy"
+        "--quanMethod", type=str, default="windowed_greedy", help="Algorithm to use, only Algo3 is available, Algo1: Algo2: Algo3: windowed_greedy"
     )
     
     parser.add_argument(
