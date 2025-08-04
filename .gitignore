@@ -1,0 +1,11 @@
+trivial.py
+test.sbatch
+test/
+stdout/
+cache/
+__pycache__/
+job/
+test.py
+fig/
+hidden_data/
+hidden_data_mt/
