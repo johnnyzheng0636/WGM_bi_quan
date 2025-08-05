@@ -9,3 +9,5 @@ test.py
 fig/
 hidden_data/
 hidden_data_mt/
+full_eval_results/
+lm-evaluation-harness/

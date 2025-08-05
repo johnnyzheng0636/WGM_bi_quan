@@ -277,9 +277,7 @@ class binaryQuantization():
         # and relis on the depending while loop without CUDA adaption
         # self.model.to(self.device)
 
-        if "gemma-3" in self.model_name and "1b" not in self.model_name:
-            self.layers = self.model.model.language_model.layers
-        else:
+        if "gemma-3" in self.model_name.lower():
             self.layers = self.model.model.layers
         
         print('mem after getting att layer of init')
@@ -618,9 +616,7 @@ class binaryQuantization():
             rc_init_start = time.time()
             rc_model = load_model(self.model_name)            
 
-            if "gemma-3" in self.model_name and "1b" not in self.model_name:
-                rc_layers = rc_model.model.language_model.layers
-            else:
+            if "gemma-3" in self.model_name.lower():
                 rc_layers = rc_model.model.layers
 
             rc_linear_childern = {}

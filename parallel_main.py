@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 import sys
 import shlex
-# due to resource available, parallel is done by submiting multiple slurm jobs
+# python multi threading is slow, so parallel is done by submiting multiple slurm jobs
 # This .py create the corresponding .sbatch for each jobs, and run them in the
 # correct sequence.
 
@@ -57,12 +57,8 @@ if __name__ == '__main__':
         "--quanMethod", type=str, default="windowed_greedy", help="model to load; for example `meta-llama/Llama-3.2-1B`."
     )
     
-    # parser.add_argument(
-    #     "--layer_cache_dir", type=str, default="./hidden_data", help="directory to save the layer cache for experiments."
-    # )
-    # tmp storage
     parser.add_argument(
-        "--layer_cache_dir", type=str, default="/project/mscbdt2024/xzhengbj/5014/bi_quan/hidden_data", help="directory to save the layer cache for experiments."
+        "--layer_cache_dir", type=str, default="./hidden_data", help="directory to save the layer cache for experiments."
     )
 
     parser.add_argument(

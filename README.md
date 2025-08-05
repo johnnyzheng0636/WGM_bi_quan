@@ -4,7 +4,7 @@
 
 Run
 ```
-setup.sh
+source setup.sh
 ```
 
 ## Run
@@ -20,7 +20,7 @@ python ./main.py --model meta-llama/Llama-3.2-1B --quanMethod windowed_greedy --
 ```
 
 ### Parallel with slurm
-Set up your slurm config in xxx first, then
+Set up your slurm config in ./parallel_main.py sbatch_template first, then
 ```
 python parallel_main.py --model meta-llama/Llama-3.2-1B --quanMethod windowed_greedy --max_groups 32 --window 64 -oq
 ```

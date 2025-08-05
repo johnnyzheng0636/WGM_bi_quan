@@ -14,16 +14,12 @@ if __name__ == '__main__':
         "--model", type=str, default="meta-llama/Llama-3.2-1B", help="model to load; for example `meta-llama/Llama-3.2-1B`."
     )
     parser.add_argument(
-        "--quanMethod", type=str, default="windowed_greedy", help="Algorithm to use, only Agitlgo3 is available, Algo1: Algo2: Algo3: windowed_greedy"
+        "--quanMethod", type=str, default="windowed_greedy", help="Algorithm to use, only Agitlgo3 is available, Algo1 and Algo2 have demo in matrix test. Algo3: windowed_greedy"
     )
     
     parser.add_argument(
         "--layer_cache_dir", type=str, default="./hidden_data", help="directory to save the layer cache for experiments."
     )
-    # tmp storage
-    # parser.add_argument(
-    #     "--layer_cache_dir", type=str, default="/project/mscbdt2024/xzhengbj/5014/bi_quan/hidden_data", help="directory to save the layer cache for experiments."
-    # )
 
     parser.add_argument(
         "--seed", type=int, default=0, help="Seed for sampling perplexity data."

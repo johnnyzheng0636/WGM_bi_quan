@@ -1,27 +1,11 @@
-# similar to run.py, but this only evaluates perplexityu of 
-# a local model given the path to the model
+# evaluates perplexityu of a local model given the path to the model
 import time
 
 import torch
 import torch.nn as nn
 
-# from bigptq import BRAGPTQ
-# from binary import Binarization
-# from modelutils import find_layers
-# from huggingface_hub import login
-
 from pprint import pprint
 import traceback
-
-# trun it off before submit slurm job
-
-# DEBUG = True        # before ready
-# DEBUG_ar = True     # after ready
-
-# DEBUG = False        # before ready
-# DEBUG_ar = False     # after ready
-
-# login(token = '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')
 
 tstart = time.time()
 
@@ -72,135 +56,40 @@ if __name__ == "__main__":
     import argparse
     from datautils import *
 
-    # def list_of_ints(arg):
-    #     return list(map(int, arg.split(',')))
-    
-    # def list_of_floats(arg):
-    #     return list(map(float, arg.split(',')))
-    # if DEBUG:
-    #     print('before parser')
-
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
-        "model", type=str, help="model to load; for example `huggyllama/llama-7b`."
+        "model", type=str, help="model to load; for example `meta-llama/Llama-3.2-1B`."
     )
-    # parser.add_argument(
-    #     "dataset",
-    #     type=str,
-    #     choices=["wikitext2", "ptb", "c4"],
-    #     help="Where to extract calibration data from.",
-    # )
-    # parser.add_argument(
-    #     "low_quant_method",
-    #     type=str,
-    #     choices=["xnor", "sign", "no", "1bit", "2bit", "3bit", "4bit", "prune", "braq", "1.58bit"],
-    #     help="quantization method; `xnor` is the method using XNOR to adapt hardware calculation; `prune` is the method used in sparseGPTQ; braq is the method used in BiLLM",
-    # )
     parser.add_argument(
         "--load_cache_model", 
         type=str, 
         default='',
-        help="model cache path; for example '/home/xzhengbj/.cache/huggingface/hub/models--meta-llama--Llama-2-7b-hf/snapshots/01c7f73d771dfac7d292323805ebc428287df4f9'."
+        help="model cache path."
     )
-    # parser.add_argument("--load_quantized", action="store_true")
     parser.add_argument(
         "--seed", type=int, default=0, help="Seed for sampling the calibration data."
     )
-    # parser.add_argument(
-    #     "--nsamples", type=int, default=128, help="Number of calibration data samples."
-    # )
-    # parser.add_argument(
-    #     "--percdamp",
-    #     type=float,
-    #     default=0.01,
-    #     help="Percent of the average Hessian diagonal to use for dampening.",
-    # )
-    # parser.add_argument(
-    #     "--blocksize",
-    #     type=int,
-    #     default=128,
-    #     help="Blocksize to use for adaptive mask selection.",
-    # )
-    # parser.add_argument(
-    #     "--salient_metric",
-    #     type=str,
-    #     default="magnitude",
-    #     choices=["magnitude", "hessian"],
-    # )
     parser.add_argument(
         "--device",
         type=str,
         default="cuda:0",
         help="set the device to use for quantization. cpu or cuda:x",
     )
-    # parser.add_argument(
-    #     "--disable_gptq",
-    #     action="store_true",
-    #     help="disable GPTQ for quantization.",
-    # )
-    # parser.add_argument(
-    #     "--minlayer", type=int, default=-1, help="Quant all layers with id >= this."
-    # )
-    # parser.add_argument(
-    #     "--maxlayer", type=int, default=1000, help="Quant all layers with id < this."
-    # )
-    # parser.add_argument(
-    #     "--quant_only",
-    #     type=str,
-    #     default="",
-    #     help="Quant only layers that contain this text.",
-    # )
-    # parser.add_argument("--invert", action="store_true", help="Invert subset.")
-    # parser.add_argument(
-    #     "--save",
-    #     action="store_true",
-    # )
     parser.add_argument(
         "--log_wandb", action="store_true", help="Whether to log to wandb."
     )
-    # parser.add_argument(
-    #     "--catcher", action="store_false", help="test new catcher"
-    # )
-    # parser.add_argument(
-    #     "--debug", action="store_true", help="debug mode"
-    # )
-    # parser.add_argument(
-    #     "--o1", type=int, default=1, help="order[0]"
-    # )
-    # parser.add_argument(
-    #     "--o2", type=int, default=1, help="order[1]"
-    # )
-    # parser.add_argument(
-    #     "--o3", type=int, default=2, help="order[2]"
-    # )
+
 
     args = parser.parse_args()
-    # groupsize = args.blocksize
 
-    # order = (args.o1, args.o2, args.o3)
-
-    # if args.device != 'cpu':
-    #     DEBUG = False
-    #     DEBUG_ar = False
-
-    # if DEBUG:
     print('after parser')
 
     device = args.device
-    # if order != (1,1,2):
-    #     save_title = f"{args.model}_{args.dataset}_{args.low_quant_method}_{groupsize}_{args.salient_metric}_order{args.o1}{args.o2}{args.o3}"
-    # else:        
-    #     save_title = f"{args.model}_{args.dataset}_{args.low_quant_method}_{groupsize}_{args.salient_metric}"
-    # save_file = "./output/" + save_title.replace("/", "_") + ".pt"
     print("loading model ", args.model)
-    # if args.load_quantized:
     model = get_model(args.model)
     print("model loaded")
     model.eval()
-    # else: # braq
-    #     print("only for quantized/local model perplexity evaluation")
-    #     exit(0)
 
     print('quantization finished/loaded with {} seconds'.format(time.time() - tstart))
 
