@@ -18,7 +18,7 @@ def get_tokenizer(model):
     print("loading tokenizer for model:", model)
     if "llama" in model.lower():
         # LlamaTokenizer only support Llama 2
-        tokenizer = AutoTokenizer.from_pretrained(model, use_fast=False)
+        tokenizer = AutoTokenizer.from_pretrained(model, use_fast=True)
         # fix for transformer 4.28.0.dev0 compatibility
         try:
             if tokenizer.bos_token_id != 1 or tokenizer.eos_token_id != 2:
@@ -31,7 +31,7 @@ def get_tokenizer(model):
             print('tokenizer bugged out, manually replace the tokenizer from hugging face')
             exit()
     else:
-        tokenizer = AutoTokenizer.from_pretrained(model, use_fast=False)
+        tokenizer = AutoTokenizer.from_pretrained(model, use_fast=True)
     return tokenizer
 
 def get_wikitext2(nsamples, seed, seqlen, model, tokenizer):

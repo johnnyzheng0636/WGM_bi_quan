@@ -25,11 +25,11 @@ def get_tokenizer(model):
     if "llama" in model.lower():
         # LlamaTokenizer only support Llama 2
         if "meta-llama__Llama-3.2-1B".lower() in model.lower():
-            tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-3.2-1B", use_fast=False)
+            tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-3.2-1B", use_fast=True)
         elif "meta-llama__Llama-3.2-3B".lower() in model.lower():
-            tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-3.2-3B", use_fast=False)
+            tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-3.2-3B", use_fast=True)
         else:
-            tokenizer = AutoTokenizer.from_pretrained(model, use_fast=False)
+            tokenizer = AutoTokenizer.from_pretrained(model, use_fast=True)
         # fix for transformer 4.28.0.dev0 compatibility
         if tokenizer.bos_token_id != 1 or tokenizer.eos_token_id != 2:
             try:
@@ -38,7 +38,7 @@ def get_tokenizer(model):
             except AttributeError:
                 pass
     else:
-        tokenizer = AutoTokenizer.from_pretrained(model, use_fast=False)
+        tokenizer = AutoTokenizer.from_pretrained(model, use_fast=True)
     return tokenizer
 
 def get_wikitext2(nsamples, seed, seqlen, model, tokenizer):
@@ -650,7 +650,7 @@ class binaryQuantization():
             # save the quantized model as pt file            
             rc_model = rc_model.to(torch.bfloat16)
             rc_model.save_pretrained(self.savePath_quanmodel)
-            tokenizer = AutoTokenizer.from_pretrained(self.model_name, use_fast=False)
+            tokenizer = AutoTokenizer.from_pretrained(self.model_name, use_fast=True)
             tokenizer.save_pretrained(self.savePath_quanmodel)
             print(f"Model saved at {time.time() - startTime} s to {self.savePath_quanmodel}")
 
@@ -806,7 +806,7 @@ class binaryQuantization():
         print(f"Saved to {self.savePath_quanmodel}")
         self.model = self.model.to(torch.bfloat16)
         self.model.save_pretrained(self.savePath_quanmodel)
-        tokenizer = AutoTokenizer.from_pretrained(self.model_name, use_fast=False)
+        tokenizer = AutoTokenizer.from_pretrained(self.model_name, use_fast=True)
         tokenizer.save_pretrained(self.savePath_quanmodel)
 
     def run_v2(self, ):
