@@ -32,7 +32,7 @@ python parallel_main.py --model meta-llama/Llama-3.2-1B --quanMethod windowed_gr
 Replace model_name with the local path or hugging face model
 
 ```
-python ./ppl_eval.py model_name --device cpu
+python ./ppl_eval.py model_name
 ```
 #### QA
 
