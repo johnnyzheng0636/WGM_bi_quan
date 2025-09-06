@@ -220,6 +220,7 @@ class binaryQuantization():
         evalonly=False,
         chunk=0,
         avgBit=1.08,
+        lambda_nor=False,
     ):
         """
         load the model, then apply the quantization method choosen on the model
@@ -240,7 +241,7 @@ class binaryQuantization():
         self.window = window
         self.quanMethod = quanMethod
         self.loss_fn = loss_fn
-
+        self.lambda_nor = lambda_nor
         
         print('mem at the start of init')
         print(psutil.Process(os.getpid()).memory_info().rss / 1024 ** 3, "GiB")
@@ -348,6 +349,7 @@ class binaryQuantization():
                 lambda_reg=self.lambda_reg,
                 max_groups=max_groups,
                 window=self.window,
+                lambda_nor=self.lambda_nor,
             )
             quan_instance.window_grouping()
             

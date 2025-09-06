@@ -174,9 +174,9 @@ class Binarization():
 def compute_cost(j, k, prefix_sum, squared_prefix_sum, lambda_reg, lambda_nor=False):
     """Compute the cost for grouping elements from index j to k."""
     group_size = k - j
+    n = len(prefix_sum)-1
 
     if lambda_nor:
-        n = len(prefix_sum)-1
         lambda_min = ((prefix_sum[1] - (prefix_sum[2] - prefix_sum[1])) ** 2) / (3 * n)
         abs_sum_1 = prefix_sum[k] - prefix_sum[j]
         mean_1 = abs_sum_1 / group_size
@@ -196,7 +196,10 @@ def compute_cost(j, k, prefix_sum, squared_prefix_sum, lambda_reg, lambda_nor=Fa
         abs_sum_sqr = squared_prefix_sum[k] - squared_prefix_sum[j]
         mean = abs_sum / group_size
         var = (abs_sum_sqr / group_size) - (mean ** 2)
-        cost = group_size * var
+        if lambda_nor:
+            cost = group_size * var / n
+        else:
+            cost = group_size * var
     cost_reg = cost + (lambda_reg / group_size)
     # print('='*25, 'cost debug', '='*25)
     # print('cost: {},\nabs_sum: {},\nabs_sum_sqr: {},\nmean: {},\nvar: {},\ncost_reg: {}'.format(
