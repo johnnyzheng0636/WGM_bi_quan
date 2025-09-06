@@ -389,7 +389,7 @@ def llama_eval(model, testenc, dev,  dataset: str, log_wandb: bool = False):
                 )[0]
             # outs[j] = layer(inps[j].unsqueeze(0), position_ids=pos_ids[j])[0]
             # debug
-            break
+            # break
         layers[i] = layer.cpu()
         del layer
         torch.cuda.empty_cache()
@@ -415,7 +415,7 @@ def llama_eval(model, testenc, dev,  dataset: str, log_wandb: bool = False):
         neg_log_likelihood = loss.float() * model.seqlen
         nlls.append(neg_log_likelihood)
         # debug
-        break
+        # break
     ppl = torch.exp(torch.stack(nlls).sum() / (nsamples * model.seqlen))
     print(f"Perplexity: {ppl.item():3f}")
 
