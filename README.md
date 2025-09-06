@@ -55,3 +55,17 @@ square of it is the max size of big matrix experiments
 ```
 python matrix_test.py -m 10
 ```
+
+## Citation
+
+```
+@misc{zheng2025binaryquantizationllmsdynamic,
+      title={Binary Quantization For LLMs Through Dynamic Grouping}, 
+      author={Xinzhe Zheng and Zhen-Qun Yang and Haoran Xie and S. Joe Qin and Arlene Chen and Fangzhen Lin},
+      year={2025},
+      eprint={2509.03054},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2509.03054}, 
+}
+```

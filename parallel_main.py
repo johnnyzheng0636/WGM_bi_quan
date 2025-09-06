@@ -25,7 +25,7 @@ def sbatch_template(out_dir, out_file, py_args_str):
 #SBATCH --ntasks=1               # number of tasks
 #SBATCH --cpus-per-task=1        # number of max cpu per job
 #SBATCH --mem-per-cpu=64G                # memory per node, alternatively can use --mem-per-cpu for mem of each cpu
-#SBATCH --account=mscbdt2024     # only require for multiple projects
+#SBATCH --account=your_account   # only require for multiple projects
 #SBATCH --output=./stdout/cpu_parallel/{out_dir}/{out_file}.out       #output file
 
 echo "start"
