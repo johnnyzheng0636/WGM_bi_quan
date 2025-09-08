@@ -98,6 +98,9 @@ if __name__ == '__main__':
     parser.add_argument(
         "-ep", "--eval_ppl", action='store_true', help="evaluate quantization perplexity"
     )
+    parser.add_argument(
+        "-ln", "--lambda_nor", action='store_true', help="Use normalized lambda, and use corresponding objective"
+    )
     # parser.add_argument(
     #     "-qa", "--qa_eval_only", action='store_true', help="only evaluate on QA task"
     # )
